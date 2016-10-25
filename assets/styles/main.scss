@@ -1,0 +1,15 @@
+.wrapper {
+    margin: 50px auto;
+    text-align: center;
+    .payment {
+        font-size: 20px;
+        > div {
+            img {
+                height: 150px;
+                width: 150px;
+            }
+            display: inline-block;
+            padding: 5px 10px;
+        }
+    }
+}
