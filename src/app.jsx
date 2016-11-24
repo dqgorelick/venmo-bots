@@ -3,14 +3,20 @@ import '../assets/styles/main.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import SettingsView from './components/SettingsView';
+import ListContainer from './components/ListContainer';
+
 const VENMO_API = './api/feed';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          feed: null
+            feed: null,
+            minLength: 0,
+            maxLength: 200,
         };
+        this.updateState = this.updateState.bind(this);
     }
 
     componentDidMount() {
@@ -31,27 +37,29 @@ class App extends React.Component {
             });
     }
 
+    updateState(type, value) {
+        this.setState({
+            [type]: value
+        });
+        console.log('this.state',this.state);
+        return this.state[type];
+    }
+
     render() {
         if (this.state.feed) {
-            const feed = this.state.feed.data.map((payment, index) => {
-                return (
-                    <div className='payment' key={index}>
-                        <h3>Payment #{index+1}</h3>
-                        <div className="profile">
-                            <p>{payment.actor.firstname} -> </p>
-                        </div>
-                        <div className="message">
-                            <p>{payment.message}</p>
-                        </div>
-                        <div className="profile">
-                            <p>-> {payment.transactions[0].target.firstname} </p>
-                        </div>
-                    </div>
-                )
-            })
             return (
-                <div className='wrapper'>
-                    <div>{feed}</div>
+                <div>
+                    <SettingsView
+                        updateState={this.updateState}
+                        minLength={this.state.minLength}
+                        maxLength={this.state.maxLength}
+                    />
+                    <ListContainer
+                        feed={this.state.feed}
+                        updateState={this.updateState}
+                        minLength={this.state.minLength}
+                        maxLength={this.state.maxLength}
+                    />
                 </div>
             )
         } else {
