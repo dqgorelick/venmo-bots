@@ -69,7 +69,7 @@
 
 	var _SettingsView2 = _interopRequireDefault(_SettingsView);
 
-	var _ListContainer = __webpack_require__(184);
+	var _ListContainer = __webpack_require__(181);
 
 	var _ListContainer2 = _interopRequireDefault(_ListContainer);
 
@@ -86,84 +86,83 @@
 	var VENMO_API = './api/feed';
 
 	var App = function (_React$Component) {
-	    _inherits(App, _React$Component);
+	  _inherits(App, _React$Component);
 
-	    function App(props) {
-	        _classCallCheck(this, App);
+	  function App(props) {
+	    _classCallCheck(this, App);
 
-	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	        _this.state = {
-	            feed: null,
-	            minLength: 0,
-	            maxLength: 200
-	        };
-	        _this.updateState = _this.updateState.bind(_this);
-	        return _this;
+	    _this.state = {
+	      feed: null,
+	      minLength: 0,
+	      maxLength: 200
+	    };
+	    _this.updateState = _this.updateState.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.fetchVenmoData();
 	    }
+	  }, {
+	    key: 'fetchVenmoData',
+	    value: function fetchVenmoData() {
+	      var _this2 = this;
 
-	    _createClass(App, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.fetchVenmoData();
-	        }
-	    }, {
-	        key: 'fetchVenmoData',
-	        value: function fetchVenmoData() {
-	            var _this2 = this;
+	      return fetch(VENMO_API).then(function (response) {
+	        return response.json();
+	      }).then(function (responseJson) {
+	        console.log(responseJson);
+	        _this2.setState({ feed: responseJson });
+	        return responseJson;
+	      }).catch(function (error) {
+	        console.error(error);
+	        return error;
+	      });
+	    }
+	  }, {
+	    key: 'updateState',
+	    value: function updateState(type, value) {
+	      this.setState(_defineProperty({}, type, value));
+	      return this.state[type];
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.state.feed) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_SettingsView2.default, {
+	            updateState: this.updateState,
+	            minLength: this.state.minLength,
+	            maxLength: this.state.maxLength
+	          }),
+	          _react2.default.createElement(_ListContainer2.default, {
+	            feed: this.state.feed,
+	            updateState: this.updateState,
+	            minLength: this.state.minLength,
+	            maxLength: this.state.maxLength
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'wrapper' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Loading feed'
+	          )
+	        );
+	      }
+	    }
+	  }]);
 
-	            return fetch(VENMO_API).then(function (response) {
-	                return response.json();
-	            }).then(function (responseJson) {
-	                console.log(responseJson);
-	                _this2.setState({ feed: responseJson });
-	                return responseJson;
-	            }).catch(function (error) {
-	                console.error(error);
-	                return error;
-	            });
-	        }
-	    }, {
-	        key: 'updateState',
-	        value: function updateState(type, value) {
-	            this.setState(_defineProperty({}, type, value));
-	            console.log('this.state', this.state);
-	            return this.state[type];
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            if (this.state.feed) {
-	                return _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(_SettingsView2.default, {
-	                        updateState: this.updateState,
-	                        minLength: this.state.minLength,
-	                        maxLength: this.state.maxLength
-	                    }),
-	                    _react2.default.createElement(_ListContainer2.default, {
-	                        feed: this.state.feed,
-	                        updateState: this.updateState,
-	                        minLength: this.state.minLength,
-	                        maxLength: this.state.maxLength
-	                    })
-	                );
-	            } else {
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'wrapper' },
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'Loading feed'
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-
-	    return App;
+	  return App;
 	}(_react2.default.Component);
 
 		_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
@@ -21568,7 +21567,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.default = SettingsView;
 
@@ -21579,39 +21578,96 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function SettingsView(props) {
-	    console.log('props', props);
+	  function updateState(property) {
+	    return function (event) {
+	      props.updateState(property, event.target.value);
+	    };
+	  }
 
-	    function updateState(property) {
-	        return function (event) {
-	            props.updateState(property, event.target.value);
-	        };
-	    }
-
-	    return _react2.default.createElement(
-	        'div',
-	        { className: 'settings' },
-	        _react2.default.createElement(
-	            'form',
-	            null,
-	            _react2.default.createElement(
-	                'label',
-	                null,
-	                'min length:',
-	                _react2.default.createElement('input', { value: props.minLength, onChange: updateState('minLength') })
-	            ),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	                'label',
-	                null,
-	                'max length:',
-	                _react2.default.createElement('input', { value: props.maxLength, onChange: updateState('maxLength') })
-	            )
-	        )
-	    );
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'settings' },
+	    _react2.default.createElement(
+	      'form',
+	      null,
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'min length:',
+	        _react2.default.createElement('input', { value: props.minLength, onChange: updateState('minLength') })
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'label',
+	        null,
+	        'max length:',
+	        _react2.default.createElement('input', { value: props.maxLength, onChange: updateState('maxLength') })
+	      )
+	    )
+	  );
 		}
 
 /***/ },
-/* 181 */,
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = ListView;
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TransactionView = __webpack_require__(182);
+
+	var _TransactionView2 = _interopRequireDefault(_TransactionView);
+
+	var _ComicContainer = __webpack_require__(183);
+
+	var _ComicContainer2 = _interopRequireDefault(_ComicContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function ListView(props) {
+	  // console.log('props',props);
+	  // const word = props.match || false;
+	  // var re = new RegExp(`^${props.match}\\s|\\s${props.match}\\s|\\s${props.match}$`,"g");
+	  // console.log('re',re);
+	  // let phrase = payment.message.replace(/ /g,'').toLowerCase();
+	  //
+
+
+	  var filterPhrase = function filterPhrase(phrase) {
+	    return phrase.message.length > props.minLength && phrase.message.length < props.maxLength;
+	  };
+
+	  var feed = props.feed.data.filter(filterPhrase).map(function (payment, index) {
+	    return _react2.default.createElement(_TransactionView2.default, { key: index, payment: payment, index: index });
+	  });
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'wrapper' },
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        feed
+	      )
+	    ),
+	    _react2.default.createElement(_ComicContainer2.default, {
+	      feed: feed
+	    })
+	  );
+		}
+
+/***/ },
 /* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -21680,7 +21736,58 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ComicView = __webpack_require__(184);
+
+	var _ComicView2 = _interopRequireDefault(_ComicView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ComicContainer = function (_React$Component) {
+	  _inherits(ComicContainer, _React$Component);
+
+	  function ComicContainer() {
+	    _classCallCheck(this, ComicContainer);
+
+	    return _possibleConstructorReturn(this, (ComicContainer.__proto__ || Object.getPrototypeOf(ComicContainer)).call(this));
+	  }
+
+	  _createClass(ComicContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_ComicView2.default, {
+	        feed: this.props.feed
+	      });
+	    }
+	  }]);
+
+	  return ComicContainer;
+	}(_react2.default.Component);
+
+		exports.default = ComicContainer;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
 	exports.default = ComicView;
 
@@ -21691,91 +21798,65 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function ComicView(props) {
-	    return _react2.default.createElement(
-	        'div',
-	        { className: 'comic' },
-	        _react2.default.createElement(
-	            'div',
-	            { className: 'panels' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-1' },
-	                'panel-1'
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-2' },
-	                'panel-2'
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-3' },
-	                'panel-3'
-	            )
-	        ),
-	        _react2.default.createElement('img', { src: '../comics/comic1.png', alt: 'stolen comic strip' })
-	    );
-		}
-
-/***/ },
-/* 184 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = ListView;
-
-	var _react = __webpack_require__(3);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _TransactionView = __webpack_require__(182);
-
-	var _TransactionView2 = _interopRequireDefault(_TransactionView);
-
-	var _ComicView = __webpack_require__(183);
-
-	var _ComicView2 = _interopRequireDefault(_ComicView);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function ListView(props) {
-	    // console.log('props',props);
-	    // const word = props.match || false;
-	    // var re = new RegExp(`^${props.match}\\s|\\s${props.match}\\s|\\s${props.match}$`,"g");
-	    // console.log('re',re);
-	    // let phrase = payment.message.replace(/ /g,'').toLowerCase();
-	    //
-
-
-	    var filterPhrase = function filterPhrase(phrase) {
-	        return phrase.length > props.minLength && phrase.length < props.maxLength ? true : false;
+	  var panels = function () {
+	    var panel1 = props.feed[Math.floor(Math.random() * props.feed.length)];
+	    var panel2 = props.feed[Math.floor(Math.random() * props.feed.length)];
+	    var panel3 = props.feed[Math.floor(Math.random() * props.feed.length)];
+	    return {
+	      panel1: panel1,
+	      panel2: panel2,
+	      panel3: panel3
 	    };
-	    var feed = props.feed.data.map(function (payment, index) {
-	        if (filterPhrase(payment.message)) {
-	            return _react2.default.createElement(_TransactionView2.default, { key: index, payment: payment, index: index });
-	        } else {
-	            return null;
-	        }
-	    });
+	  }();
 
-	    return _react2.default.createElement(
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'comic' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'panels' },
+	      _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'panel panel-1' },
 	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-container' },
+	          _react2.default.createElement(
 	            'div',
-	            { className: 'wrapper' },
-	            _react2.default.createElement(
-	                'div',
-	                null,
-	                feed
-	            )
-	        ),
-	        _react2.default.createElement(_ComicView2.default, null)
-	    );
+	            { className: 'panel-content' },
+	            panels['panel1'].props.payment.message
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'panel panel-2' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-container' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-content' },
+	            panels['panel2'].props.payment.message
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'panel panel-3' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-container' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-content' },
+	            panels['panel3'].props.payment.message
+	          )
+	        )
+	      )
+	    ),
+	    _react2.default.createElement('img', { src: '../comics/comic1.png', alt: 'stolen comic strip' })
+	  );
 		}
 
 /***/ }

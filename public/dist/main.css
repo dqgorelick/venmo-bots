@@ -25,11 +25,19 @@ html {
     position: relative;
     width: 100%;
     height: 100%; }
-    .comic .panels > div {
+    .comic .panels > .panel {
       position: absolute;
       width: 220px;
-      height: 70px;
-      border: 2px red dotted; }
+      height: 70px; }
+      .comic .panels > .panel .panel-container {
+        position: relative;
+        width: 100%;
+        height: 100%; }
+        .comic .panels > .panel .panel-container .panel-content {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          text-align: center; }
     .comic .panels .panel-1 {
       position: absolute;
       top: 10px;
