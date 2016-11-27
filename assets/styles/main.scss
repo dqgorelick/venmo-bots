@@ -4,82 +4,139 @@
 }
 
 $comic-width: 600px;
-html {
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Comic Sans', 'Times New Roman', Serif, serif;
 }
 
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+}
+
 .settings {
-  top: 0;
-  left: 0;
+  right: 0;
+  bottom: 0;
   position: fixed;
-  max-width: 200px;
   color: #fff;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px;
 }
 
-.comic {
-  position: fixed;
-  bottom: 0;
-  max-width: #{$comic-width}px;
-  margin: 0 auto;
-  .panels {
+.main-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  width: 75%;
+  min-width: 750px;
+  .content-wrapper {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    margin: 0 auto;
+  }
+  .comic-container {
     position: relative;
     width: 100%;
-    height: 100%;
-    > .panel {
-      position: absolute;
-      width: 220px;
-      height: 70px;
-      // border: 2px red dotted;
-      .panel-container {
+    margin: 45px auto 0;
+    .comic {
+      margin: 0 auto;
+      width: 730px;
+      .panel-1 {
+        position: absolute;
+        left: 10px;
+      }
+      .panel-2 {
+        position: absolute;
+        left: 255px;
+      }
+      .panel-3 {
+        position: absolute;
+        left: 500px;
+      }
+      .comic-controls {
+        position: absolute;
+        top: -55px;
+        width: 100%;
+        .re-roll {
+          text-align: center;
+          padding: 2px;
+          width: 220px;
+          cursor: pointer;
+          background-color: rgba(0,0,0,0.5);
+          height: 20px;
+          color: #fff;
+          &.re-roll-all {
+            position: absolute;
+            width: 710px;
+            left: 10px;
+            top: 26px;
+          }
+        }
+      }
+      .panels {
         position: relative;
         width: 100%;
         height: 100%;
-        .panel-content {
+        .panel {
           position: absolute;
-          width: 100%;
-          bottom: 0;
-          text-align: center;
+          top: 10px;
+          width: 220px;
+          height: 70px;
+          // border: 2px red dotted;
+          .panel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            .panel-content {
+              position: absolute;
+              width: 100%;
+              bottom: 0;
+              text-align: center;
+            }
+          }
         }
       }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
     }
-    .panel-1 {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
-    .panel-2 {
-      position: absolute;
-      top: 10px;
-      left: 255px;
-    }
-    .panel-3 {
-      position: absolute;
-      top: 10px;
-      left: 500px;
-    }
-  }
-  img {
-    max-width: 100%;
-    height: auto;
   }
 }
 
-.wrapper {
-  margin: 50px auto;
-  text-align: center;
-  .payment {
-    font-size: 20px;
+.payments-wrapper {
+  display: inline-block;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  width: 25%;
+  max-width: 400px;
+  .payments-header {
+    background-color: #959595;
+    color: #fff;
+    width: 100%;
+    height: 100px;
     > div {
-      img {
-        height: 150px;
-        width: 150px;
+      padding: 15px;
+    }
+  }
+  .payments {
+    height: calc(100% - 100px);
+    background-color: #EAEAEA;
+    width: 100%;
+    overflow: scroll;
+    .payment-list {
+      padding: 0 15px;
+      .payment {
+        margin-top: 15px;
+        .message {
+          font-size: 20px;
+        }
+        .profile {
+          font-size: 12px;
+        }
       }
-      display: inline-block;
-      padding: 5px 10px;
     }
   }
 }

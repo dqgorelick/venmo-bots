@@ -20,6 +20,7 @@
   "homepage": "https://github.com/dqgorelick/react-webpack-scaffold#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "lodash": "^4.17.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "request": "^2.76.0"

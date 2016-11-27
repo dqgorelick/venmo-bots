@@ -22,12 +22,33 @@ export default function ListView(props) {
 
   return (
     <div>
-      <div className='wrapper'>
-        <div>{feed}</div>
+      <div className='main-wrapper'>
+        <div className="content-wrapper">
+          <h1>Venmo-bots Comic Generator</h1>
+          <p>
+            Creating comics from a continuous feed of
+            user generated content.
+          </p>
+        </div>
+        <div className='comic-container'>
+          <ComicContainer
+            feed={feed}
+          />
+        </div>
       </div>
-      <ComicContainer
-        feed={feed}
-      />
+      <div className='payments-wrapper'>
+        <div className='payments-header'>
+          <div>
+            <h1>Current feed:</h1>
+            <p>Last updated {Date.now()}</p>
+          </div>
+        </div>
+        <div className='payments'>
+          <div className="payment-list">
+            {feed}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
