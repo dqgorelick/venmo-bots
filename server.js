@@ -42,6 +42,8 @@ router.route('/feed').get((req, res) => {
 });
 
 router.route('/upload').post((req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   console.log('req.body',req.body);
 
   res.end('works');
