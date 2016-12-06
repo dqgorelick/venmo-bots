@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/dqgorelick/react-webpack-scaffold#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "dom-to-image": "^2.5.2",
     "express": "^4.14.0",
     "lodash": "^4.17.2",
     "react": "^15.3.2",

@@ -23,6 +23,32 @@ h1, h2, h3, h4, h5, p {
   padding: 10px;
 }
 
+.dev {
+  position: absolute;
+  background-color: rgba(0,0,0,0.2);
+  padding: 5px;
+}
+
+.result-wrapper {
+  position: absolute;
+  width: 75%;
+  bottom: 0;
+  left: 0;
+}
+
+.result {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  height: 150px;
+}
+
+.result img {
+  height: 100%;
+  width: auto;
+
+}
+
 .main-wrapper {
   display: inline-block;
   vertical-align: top;
