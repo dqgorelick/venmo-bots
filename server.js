@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const router = express.Router();
 const request = require('request');
+const moment = require('moment');
 
 app.use(bodyParser.json());
 const venmo = require('./modules/venmoHelper');
@@ -44,9 +45,20 @@ router.route('/feed').get((req, res) => {
 router.route('/upload').post((req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  console.log('req.body',req.body);
-
-  res.end('works');
+  var dataURL = req.body.dataURL
+  if(req.body.dataURL) {
+    var base64Data = req.body.dataURL.replace(/^data:image\/png;base64,/, "");
+    var fileName = `./created_images/${moment().format()}_rendered.png`;
+    fs.writeFile(fileName, base64Data, 'base64', function(err) {
+      if(!err) {
+        console.log('saved', fileName);
+        res.send('works!');
+      } else {
+        console.log('err',err);
+        res.send('did not work');
+      }
+    });
+  }
 });
 
 app.use('/api/', router);

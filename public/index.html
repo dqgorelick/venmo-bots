@@ -42,17 +42,38 @@
       //       console.log('data',data);
       //     });
       // });
+
+      // var RASPBERRY_PI_IP = '192.168.1.237';
+      // var MAC_IP = '192.168.1.237';
+      var RASPBERRY_PI_IP = 'localhost';
+      var MAC_IP = 'localhost';
+
       document.getElementById('upload').addEventListener('click', function() {
         var image = document.querySelector('.result img');
+        var dataURL = $('.result img').attr('src');
+        console.log('dataURL',dataURL);
         if (image) {
-          var saveData = $.ajax({
+          // save image
+          $.ajax({
             type: 'POST',
-            url: 'http://localhost:9000/api/upload',
-            data: JSON.stringify({data: 'hello'}),
+            url: 'http://'+ MAC_IP + ':9000/api/upload',
+            // url: 'http://192.168.1.210:9000/api/upload',
+            data: JSON.stringify({dataURL: dataURL}),
             contentType: 'application/json',
-            success: function(resultData) { alert("Save Complete") },
-            error: function() { alert("Something went wrong")}
+            success: function(resultData) { console.log("Save Complete") },
+            error: function() { console.log("Something went wrong")}
           });
+
+          // print
+          // $.ajax({
+          //   type: 'POST',
+          //   url: 'http://' + MAC_IP + ':9999/api/print',
+          //   // url: 'http://192.168.1.210:9000/api/upload',
+          //   data: JSON.stringify({dataURL: dataURL}),
+          //   contentType: 'application/json',
+          //   success: function(resultData) { console.log("printing!") },
+          //   error: function() { console.log("error printing")}
+          // });
         } else {
           alert('no image');
         }
