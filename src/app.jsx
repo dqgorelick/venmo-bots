@@ -13,8 +13,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       feed: null,
-      minLength: 0,
-      maxLength: 200,
+      minLength: 10,
+      maxLength: 100,
     };
     this.updateState = this.updateState.bind(this);
   }

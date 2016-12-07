@@ -43,10 +43,8 @@
       //     });
       // });
 
-      // var RASPBERRY_PI_IP = '192.168.1.237';
-      // var MAC_IP = '192.168.1.237';
-      var RASPBERRY_PI_IP = 'localhost';
-      var MAC_IP = 'localhost';
+      var RASPBERRY_PI_IP = '192.168.1.96';
+      var MAC_IP = '192.168.1.237';
 
       document.getElementById('upload').addEventListener('click', function() {
         var image = document.querySelector('.result img');
@@ -56,7 +54,7 @@
           // save image
           $.ajax({
             type: 'POST',
-            url: 'http://'+ MAC_IP + ':9000/api/upload',
+            url: 'http://'+ RASPBERRY_PI_IP + ':9000/api/upload',
             // url: 'http://192.168.1.210:9000/api/upload',
             data: JSON.stringify({dataURL: dataURL}),
             contentType: 'application/json',

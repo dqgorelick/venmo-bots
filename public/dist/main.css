@@ -42,7 +42,7 @@ h1, h2, h3, h4, h5, p {
 .main-wrapper {
   display: inline-block;
   vertical-align: top;
-  width: 75%;
+  width: 100%;
   min-width: 750px; }
   .main-wrapper .content-wrapper {
     max-width: 800px;
@@ -97,6 +97,8 @@ h1, h2, h3, h4, h5, p {
             width: 100%;
             height: 100%; }
             .main-wrapper .comic-container .comic .panels .panel .panel-container .panel-content {
+              font-size: 20px;
+              line-height: 23px;
               position: absolute;
               width: 100%;
               bottom: 0;
@@ -106,7 +108,7 @@ h1, h2, h3, h4, h5, p {
         height: auto; }
 
 .payments-wrapper {
-  display: inline-block;
+  display: none;
   height: 100vh;
   right: 0;
   top: 0;
