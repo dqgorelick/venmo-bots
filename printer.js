@@ -13,6 +13,7 @@ const PRINT_PORT = process.argv[2] || 9999;
 router.route('/upload').post((req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   var dataURL = req.body.dataURL
   if(req.body.dataURL) {
     var base64Data = req.body.dataURL.replace(/^data:image\/png;base64,/, "");

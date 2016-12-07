@@ -7,8 +7,13 @@ const router = express.Router();
 const request = require('request');
 const moment = require('moment');
 
+const util = require('util');
+const exec = require('child_process').exec;
+
 app.use(bodyParser.json());
 const venmo = require('./modules/venmoHelper');
+
+const RASPBERRY_PI_IP = '192.168.1.96:9000';
 
 const PORT = process.argv[2] || 9000;
 const LIMIT = 10000;
@@ -52,6 +57,19 @@ router.route('/upload').post((req, res) => {
     fs.writeFile(fileName, base64Data, 'base64', function(err) {
       if(!err) {
         console.log('saved', fileName);
+        if(process.env.PI) {
+          console.log('printing yay');
+          child = exec(`lpr -o fit-to-page ${fileName}`, // command line argument directly in string
+            function (error, stdout, stderr) {      // one easy function to capture data/errors
+              console.log('stdout: ' + stdout);
+              console.log('stderr: ' + stderr);
+              if (error !== null) {
+                console.log('exec error: ' + error);
+              }
+          });
+        } else {
+          console.log('not on the pi');
+        }
         res.send('works!');
       } else {
         console.log('err',err);
@@ -60,6 +78,7 @@ router.route('/upload').post((req, res) => {
     });
   }
 });
+
 
 app.use('/api/', router);
 
