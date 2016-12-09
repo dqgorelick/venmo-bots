@@ -2,7 +2,7 @@ import '../assets/styles/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import $ from 'jquery';
 import SettingsView from './components/SettingsView';
 import ListContainer from './components/ListContainer';
 
@@ -24,17 +24,12 @@ class App extends React.Component {
   }
 
   fetchVenmoData() {
-    return fetch(VENMO_API)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        this.setState({ feed: responseJson });
-        return responseJson;
-      })
-      .catch((error) => {
-        console.error(error);
-        return error;
-      });
+    $.get( VENMO_API, ( data ) => {
+      var result = JSON.parse(data);
+      console.log('result.data',result.data);
+      this.setState({ feed: result });
+      return result.data;
+    });
   }
 
   updateState(type, value) {

@@ -24,6 +24,7 @@ var STEPS = 10;
 var cached;
 
 router.route('/feed').get((req, res) => {
+  console.log('requested!');
   if (CACHED) {
     console.log('CACHED version');
     if (!!cached) {
