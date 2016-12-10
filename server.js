@@ -13,8 +13,6 @@ const exec = require('child_process').exec;
 app.use(bodyParser.json());
 const venmo = require('./modules/venmoHelper');
 
-const RASPBERRY_PI_IP = '192.168.1.96:9000';
-
 const PORT = process.argv[2] || 9000;
 const LIMIT = 10000;
 const CACHED = process.env.CACHE || false;
@@ -48,30 +46,34 @@ router.route('/feed').get((req, res) => {
   }
 });
 
-router.route('/upload').post((req, res) => {
+router.route('/save').post((req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   var dataURL = req.body.dataURL
   if(req.body.dataURL) {
+    var toSend = JSON.stringify({dataURL: dataURL})
+    var options = {
+      uri: 'http://192.168.1.96:9999/api/print',
+      method: 'POST',
+      body: toSend,
+      headers: {
+          "content-type": "application/json",
+      }
+    };
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+      } else {
+        console.log('error',error);
+      }
+    });
     var base64Data = req.body.dataURL.replace(/^data:image\/png;base64,/, "");
     var fileName = `./created_images/${moment().format()}_rendered.png`;
     fs.writeFile(fileName, base64Data, 'base64', function(err) {
       if(!err) {
         console.log('saved', fileName);
-        if(process.env.PI) {
-          console.log('printing yay');
-          child = exec(`lpr -o fit-to-page ${fileName}`, // command line argument directly in string
-            function (error, stdout, stderr) {      // one easy function to capture data/errors
-              console.log('stdout: ' + stdout);
-              console.log('stderr: ' + stderr);
-              if (error !== null) {
-                console.log('exec error: ' + error);
-              }
-          });
-        } else {
-          console.log('not on the pi');
-        }
-        res.send('works!');
+        res.send('saved to server!');
       } else {
         console.log('err',err);
         res.send('did not work');

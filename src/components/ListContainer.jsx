@@ -43,11 +43,6 @@ export default function ListView(props) {
             <p>Last updated {Date.now()}</p>
           </div>
         </div>
-        <div className='payments'>
-          <div className="payment-list">
-            {feed}
-          </div>
-        </div>
       </div>
     </div>
   );
