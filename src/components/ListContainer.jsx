@@ -24,7 +24,7 @@ export default function ListView(props) {
     <div>
       <div className='main-wrapper'>
         <div className="content-wrapper">
-          <h1>Venmo-bots Comic Generator</h1>
+          <h1>Venmo Strips Generator</h1>
           <p>
             Creating comics from a continuous feed of
             user generated content.
