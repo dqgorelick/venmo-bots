@@ -1,59 +1,38 @@
-# React Webpack Scaffold
+# Venmo Comic Generator
 
-This is definitely not the best webpack starter pack, but it is what I use.
+![Venmo Strip Example](./public/images/venmo-bots.jpg)
 
-### What does this come with?
+Creates three panel comics by combining most recent venmo transactions with Cyanide and Happiness panels. Finished comics can be printed on receipt paper.
 
-- Transpiles es6 to es5 javascript
-- Compiles SASS styles to CSS
-- Offers build webpack
+### Setup
+install all dependencies: `npm install`
 
-### Getting started
+run node server: `node server.js`
 
-Clone repo (or fork!)
-```git clone https://github.com/dqgorelick/react-webpack-scaffold.git```
+start webpack dev: `npm start`
 
-Navigate to root directory
-```cd react-webpack-scaffold```
+navigate to `localhost:9000`
 
-Install all node dependencies
-```npm install```
+### Printing comics
 
-Start server
-```
-node server.js
+Created to print using a Raspberry Pi 2, with the [Adafruit Mini Thermal Receipt Printer](https://www.adafruit.com/product/597). **This printer only works with Raspberry Pi 2, not 3**.
 
-OR
+Find the Raspberry Pi IP address using `ifconfig`
 
-node server.js <PORT NUMBER>
-```
+In `./public/index.html`, change `RASPBERRY_PI_IP` to equal the IP of your Pi.
 
-In another terminal window, run `npm start` to run webpack
+Follow [this guide](https://learn.adafruit.com/networked-thermal-printer-using-cups-and-raspberry-pi/connect-and-configure-printer) to set up the receipt printer with Raspberry Pi 2.
 
-In browser, navigate to:
-```
-http://localhost:9000
+Once set up, on the Raspberry Pi 2 run `PI=true node printer.js`.
 
-OR
+Cross fingers, and try printing from the web app.
 
-http://localhost:<PORT NUMBER>
-```
+### Examples
 
-### Building
-From root directory run
+Created by visitors at the SFPC exhibit:
 
-```npm run build```
+![Venmo Strip Example](./public/images/example.png)
+![Venmo Strip Example](./public/images/example4.png)
 
-
-### Tips
-Edit styles in /assets/styles/main.scss
-
-### TODO
-- Add hot reloading for sass
-- Add hot reloading for react components
-
-### Credits
-Created by Daniel Gorelick
-- [Github](http://github.com/dqgorelick)
-- [Personal site](http://danielgorelick.com)
+Originally exhibited at the [SFPC](http://sfpc.io/) Final Showcase
 

@@ -53,7 +53,6 @@
     <script>
     $(document).ready(function() {
       var RASPBERRY_PI_IP = '192.168.1.96';
-      var MAC_IP = '192.168.1.237';
       var touched = false;
       $('.print').on('touchend', function() {
         if (!touched) {
@@ -90,15 +89,6 @@
           $('.result').css('display','none');
           setTimeout(function(){$('.printing-status').css('display','none');}, 1000*25);
           if (image) {
-            // save image
-            // $.ajax({
-            //   type: 'POST',
-            //   url: 'http://venmobots.ngrok.io/api/upload',
-            //   data: JSON.stringify({dataURL: dataURL}),
-            //   contentType: 'application/json',
-            //   success: function(resultData) { console.log("Sending to printer") },
-            //   error: function() { console.log("Could not print uh oh")}
-            // });
             $.ajax({
               type: 'POST',
               url: './api/save',
