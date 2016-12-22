@@ -85,9 +85,10 @@
           $('.result').css('display','initial');
           var image = document.querySelector('.result img');
           var dataURL = $('.result img').attr('src');
+          console.log('dataURL',dataURL);
           $('.comic-container').removeClass('printing');
           $('.result').css('display','none');
-          setTimeout(function(){$('.printing-status').css('display','none');}, 3000);
+          setTimeout(function(){$('.printing-status').css('display','none');}, 1000*25);
           if (image) {
             // save image
             // $.ajax({

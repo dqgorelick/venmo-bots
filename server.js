@@ -47,9 +47,6 @@ router.route('/feed').get((req, res) => {
 });
 
 router.route('/save').post((req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
   var dataURL = req.body.dataURL
   if(req.body.dataURL) {
     var toSend = JSON.stringify({dataURL: dataURL})

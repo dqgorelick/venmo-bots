@@ -47,8 +47,8 @@ export default function ComicView(props) {
           </div>
         </div>
       </div>
-      <img src='../comics/comic1.png' alt='stolen comic strip'/>
     </div>
   );
+      // <img src='../comics/comic1.png' alt='stolen comic strip'/>
 
 }

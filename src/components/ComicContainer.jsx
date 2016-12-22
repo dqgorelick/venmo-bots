@@ -75,20 +75,25 @@ class ComicContainer extends React.Component {
   }
 
   render() {
-    return (
-      <div className='comic'>
-        <div className='result'>
+    console.log('this.state.comic',this.state.comic);
+    if (this.state.comic !== null) {
+      return (
+        <div className='comic'>
+          <div className='result'>
+          </div>
+          <div className='comic-controls'>
+            <div className="re-roll re-roll-all" onClick={this.getPanelContent}><span>re-roll all</span></div>
+            <div className="re-roll panel-1" onClick={()=>{this.rollPanel('panel1')}}><span>re-roll panel 1</span></div>
+            <div className="re-roll panel-2" onClick={()=>{this.rollPanel('panel2')}}><span>re-roll panel 2</span></div>
+            <div className="re-roll panel-3" onClick={()=>{this.rollPanel('panel3')}}><span>re-roll panel 3</span></div>
+          </div>
+          {this.renderPanels()}
+          <img src={`../comics/comic${this.state.comic}.png`} alt='stolen comic strip'/>
         </div>
-        <div className='comic-controls'>
-          <div className="re-roll re-roll-all" onClick={this.getPanelContent}><span>re-roll all</span></div>
-          <div className="re-roll panel-1" onClick={()=>{this.rollPanel('panel1')}}><span>re-roll panel 1</span></div>
-          <div className="re-roll panel-2" onClick={()=>{this.rollPanel('panel2')}}><span>re-roll panel 2</span></div>
-          <div className="re-roll panel-3" onClick={()=>{this.rollPanel('panel3')}}><span>re-roll panel 3</span></div>
-        </div>
-        {this.renderPanels()}
-        <img src={`../comics/comic${this.state.comic}.png`} alt='stolen comic strip'/>
-      </div>
-    )
+      )
+    } else {
+       return null;
+    }
   }
 }
 
