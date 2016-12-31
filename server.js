@@ -11,7 +11,6 @@ const util = require('util');
 const exec = require('child_process').exec;
 
 app.use(bodyParser.json());
-const venmo = require('./modules/venmoHelper');
 
 const PORT = process.argv[2] || 9000;
 const LIMIT = 10000;

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Venmo Strips</title>
+    <meta content="text/html">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./dist/main.css">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <script src='../javascripts/jquery.min.js'></script>
+    <script src='../javascripts/html2canvas.min.js'></script>
+</head>
+
+<body>
+    <div class='printing-status'>
+      <div class="hide-printing">
+        <h1>Printing...</h1>
+        <img src="./images/zim.gif" alt=""/>
+        <p>Retrieve comic from printer below</p>
+      </div>
+    </div>
+    <div class='reload'>
+      <div class="reloading">
+        <h1>Get most recent Venmo payments?</h1>
+        <div class='buttons'>
+          <button class='button-yes'>Yes</button>
+          <br>
+          <br>
+          <button class='button-no'>Not yet</button>
+        </div>
+      </div>
+    </div>
+    <div id="app">
+        <div className="content-wrapper">
+          <h1>Venmo Strips Generator</h1>
+          <p>
+            Creating comics from a continuous feed of
+            user generated content.
+          </p>
+          <br>
+          <strong>
+            <p>Please refresh page</p>
+          </strong>
+        </div>
+    </div>
+    <div class="print-wrapper">
+      <div class="print">
+        <div class="re-roll print"><span>Print Comic!</span></button>
+      </div>
+    </div>
+    <script src="./dist/bundle.js"></script>
+    <script>
+    $(document).ready(function() {
+      var RASPBERRY_PI_IP = '192.168.1.96';
+      var touched = false;
+      $('.print').on('click', function() {
+        if (!touched) {
+          touched = true;
+          console.log('touched!');
+          $('.printing-status').css('display','initial');
+          $('.comic-container').addClass('printing');
+          $('.result').css('display','none');
+          var node = document.querySelector('.comic-container');
+          setTimeout(function() {
+            html2canvas(node, {useCORS: true}).then(function (canvas) {
+              try {
+                  b64Data = canvas.toDataURL("image/png");
+                  var img = new Image();
+                  img.src = b64Data;
+                  document.querySelector('.result').innerHTML = '';
+                  document.querySelector('.result').appendChild(img);
+                  sendToServer();
+              } catch (err) {
+              }
+            }).catch(function onRejected(error) {
+            });
+          }, 500);
+        }
+
+        function sendToServer() {
+          touched = false;
+          console.log('called sendToServer');
+          $('.result').css('display','initial');
+          var image = document.querySelector('.result img');
+          var dataURL = $('.result img').attr('src');
+          console.log('dataURL',dataURL);
+          $('.comic-container').removeClass('printing');
+          $('.result').css('display','none');
+          setTimeout(function(){$('.printing-status').css('display','none');}, 1000*25);
+          if (image) {
+            $.ajax({
+              type: 'POST',
+              url: './api/save',
+              data: JSON.stringify({dataURL: dataURL}),
+              contentType: 'application/json',
+              success: function(resultData) { console.log("Save Complete") },
+              error: function() { console.log("Something went wrong")}
+            });
+          } else {
+            alert('no image');
+          }
+        }
+      });
+      $('.button-yes').click(function(){
+        location.reload();
+      });
+      $('.button-no').click(function(){
+        $('.reload').css('display', 'none');
+        reloadCount = 0;
+        clearInterval(resetCount);
+      });
+      var resetCount;
+      var reloadCount = 0;
+      // reload every 3 minutes
+      setInterval(function() {
+        $('.reload').css('display', 'initial');
+        resetCount = setInterval(function(){
+          reloadCount+=1;
+          if (reloadCount > 10) {
+            location.reload();
+          }
+        }, 1000);
+      }, 1000*60*3);
+    });
+    </script>
+</body>
+
+</html>
