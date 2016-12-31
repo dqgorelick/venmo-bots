@@ -7,73 +7,110 @@
     <meta content="text/html">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./dist/main.css">
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <script src='../javascripts/jquery.min.js'></script>
-    <script src='../javascripts/html2canvas.min.js'></script>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <script src="../javascripts/jquery.min.js"></script>
+    <script src="../javascripts/html2canvas.min.js"></script>
 </head>
 
 <body>
-    <div class='save-wrapper'>
+    <div class="save-wrapper">
       <div class="save-modal">
-        <h1>Final Comic!</h1>
-        <div class="final_comic"></div>
-        <div class="re-roll close">
-          <span>Close</span>
+        <div class="rendering">
+          <h3>Rendering your comic...</h3>
+          <div class="loading">
+            <img src="./images/zim.gif" alt="loading dancing gir"/>
+          </div>
+        </div>
+        <div class="rendered">
+          <h3>Final Comic!</h3>
+          <div class="final_comic"></div>
+            <a class="download_link" download='venmo_strip.png'>
+              <div class="button">
+                <span>
+                  Download
+                </span>
+              </div>
+            </a>
+          </div>
+          <div class="button close">
+            <span>Close</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class='reload'>
+    <div class="reload">
       <div class="reloading">
         <h1>Get most recent Venmo payments?</h1>
-        <div class='buttons'>
-          <button class='button-yes'>Yes</button>
+        <div class="buttons">
+          <button class="button-yes">Yes</button>
           <br>
           <br>
-          <button class='button-no'>Not yet</button>
+          <button class="button-no">Not yet</button>
         </div>
       </div>
     </div>
     <div id="app">
-        <div className="content-wrapper">
+      <div class="main-wrapper">
+        <div class="content-wrapper">
           <h1>Venmo Strips Generator</h1>
           <p>
             Creating comics from a continuous feed of
             user generated content.
           </p>
-          <br>
-          <strong>
-            <p>Please refresh page</p>
-          </strong>
         </div>
+      </div>
     </div>
     <script src="./dist/bundle.js"></script>
     <script>
     $(document).ready(function() {
+      // flag so comic size is constant when rendering
+      var rendering = false;
       function checkWidth() {
-        (window.innerWidth < 750 ? $('.comic').addClass('smaller') : $('.comic').removeClass('smaller'));
+        console.log('rendering',rendering);
+        if (!rendering) {
+          (window.innerWidth < 750 ? $('.comic').addClass('smaller') : $('.comic').removeClass('smaller'));
+        }
       }
-      checkWidth();
       $(window).on('resize', function() {
         checkWidth();
-      })
-      $('.print').on('click', function() {
-        console.log('touched!');
-        $('.printing-status').css('display','initial');
-        var node = document.querySelector('.comic');
-        html2canvas(node, {useCORS: true}).then(function (canvas) {
-          try {
-            b64Data = canvas.toDataURL("image/png");
-            var img = new Image();
-            img.src = b64Data;
-            document.querySelector('.final_comic').innerHTML = '';
-            document.querySelector('.final_comic').appendChild(img);
-          } catch (err) {
-            console.log('err',err);
-          }
-        });
       });
+
+      var findSave = setInterval(function() {
+        if (!!$('.save-comic').length) {
+          console.log('found .save-comic');
+          $('.save-comic').click(function() {
+          $('.save-modal').addClass('waiting');
+          $('.comic').addClass('rendering')
+          $('.comic').removeClass('smaller')
+          rendering = true;
+          $('.save-wrapper').css('display','initial');
+          var node = document.querySelector('.comic');
+          html2canvas(node, {useCORS: true}).then(function (canvas) {
+            try {
+              b64Data = canvas.toDataURL("image/png");
+              var img = new Image();
+              img.src = b64Data;
+              $('.download_link').attr('href', img.src);
+
+              $('.final_comic').html(img);
+              setTimeout(function() {
+                $('.save-modal').removeClass('waiting');
+                rendering = false;
+                checkWidth();
+              }, 250);
+            } catch (err) {
+              console.log('err',err);
+            }
+          });
+          });
+          clearInterval(findSave);
+        } else {
+          console.log('didnt find .save-comic');
+        }
+      }, 200);
+
       $('.close').click(function(){
-        $('.printing-status').css('display','none');
+        $('.save-wrapper').css('display','none');
       })
       $('.button-yes').click(function(){
         location.reload();
@@ -95,8 +132,8 @@
           }
         }, 1000);
       }, 1000*60*3);
-    });
-    </script>
+  });
+  </script>
 </body>
 
 </html>

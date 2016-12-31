@@ -79,15 +79,18 @@ class ComicContainer extends React.Component {
     if (this.state.comic !== null) {
       return (
         <div>
-          <div className={`comic ${(window.innerWidth < 750 ? 'smaller': '')}`}>
-            {this.renderPanels()}
-            <img src={`../comics/comic${this.state.comic}.png`} alt='comic strip'/>
+          <div className="comic-overflow">
+            <div className={`comic ${(window.innerWidth < 750 ? 'smaller': '')}`}>
+              {this.renderPanels()}
+              <img src={`../comics/comic${this.state.comic}.png`} alt='comic strip'/>
+            </div>
           </div>
           <div className='comic-controls'>
-            <div className="button panel-1" onClick={()=>{this.rollPanel('panel1')}}><span>re-roll panel</span></div>
-            <div className="button panel-2" onClick={()=>{this.rollPanel('panel2')}}><span>re-roll panel</span></div>
-            <div className="button panel-3" onClick={()=>{this.rollPanel('panel3')}}><span>re-roll panel</span></div>
-            <div className="button re-roll-all" onClick={this.getPanelContent}><span>Randomize Comic!</span></div>
+            <div className='button panel-1' onClick={()=>{this.rollPanel('panel1')}}><span>re-roll panel</span></div>
+            <div className='button panel-2' onClick={()=>{this.rollPanel('panel2')}}><span>re-roll panel</span></div>
+            <div className='button panel-3' onClick={()=>{this.rollPanel('panel3')}}><span>re-roll panel</span></div>
+            <div className='button re-roll-all' onClick={this.getPanelContent}><span>Randomize Comic!</span></div>
+            <div className='button save-comic'><span>Save Comic</span></div>
           </div>
         </div>
       )

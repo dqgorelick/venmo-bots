@@ -13,6 +13,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #f7f7f7;
 }
 
 h1,
@@ -47,14 +48,41 @@ p {
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 99999999;
   .save-modal {
+    margin: 5% 5%;
+    min-height: 80vh;
+    padding: 20px 15px;
     text-align: center;
-    padding: 40px 200px;
-    margin: 5%;
     background-color: #ffffff;
     border-radius: 15px;
-    img {
+    &.waiting {
+      .rendered {
+        display: none;
+      }
+      .rendering {
+        display: initial;
+      }
+    }
+    .rendered {
+      display: initial;
+    }
+    .rendering {
+      display: none;
+    }
+    .final_comic img {
+      max-width: 730px;
+      width: 100%;
+      height: auto;
       margin: 40px auto;
     }
+  }
+}
+
+.loading {
+  margin: 30px auto;
+  height: 150px;
+  img {
+    height: 150px;
+    width: auto;
   }
 }
 
@@ -104,13 +132,13 @@ p {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  -webkit-box-shadow: 0 8px 0 #3E749C, 0 15px 20px rgba(0, 0, 0, .35);
-  -moz-box-shadow: 0 8px 0 #3E749C, 0 15px 20px rgba(0, 0, 0, .35);
-  box-shadow: 0 8px 0 #3E749C, 0 15px 20px rgba(0, 0, 0, .35);
-  -webkit-transition: -webkit-box-shadow .1s ease-in-out;
-  -moz-transition: -moz-box-shadow .1s ease-in-out;
-  -o-transition: -o-box-shadow .1s ease-in-out;
-  transition: box-shadow .1s ease-in-out;
+  -webkit-box-shadow: 0 4px 0 #3E749C;
+  -moz-box-shadow: 0 4px 0 #3E749C;
+  box-shadow: 0 4px 0 #3E749C;
+  -webkit-transition: -webkit-box-shadow .05s ease-in-out;
+  -moz-transition: -moz-box-shadow .05s ease-in-out;
+  -o-transition: -o-box-shadow .05s ease-in-out;
+  transition: box-shadow .05s ease-in-out;
   color: #ffffff;
   @include media(small) {
     font-size: 0.8rem;
@@ -127,25 +155,25 @@ p {
     width: 100%;
     height: 100%;
     line-height: 40px;
-    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
-    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
-    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
-    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+    -webkit-transition: background-color .1s ease-in-out, -webkit-transform .05s ease-in-out;
+    -moz-transition: background-color .1s ease-in-out, -moz-transform .05s ease-in-out;
+    -o-transition: background-color .1s ease-in-out, -o-transform .05s ease-in-out;
+    transition: background-color .1s ease-in-out, transform .05s ease-in-out;
   }
   &:hover span {
     background-color: #4F93C4;
   }
   &:active,
   &:focus {
-    -webkit-box-shadow: 0 8px 0 #3E749C, 0 12px 10px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 8px 0 #3E749C, 0 12px 10px rgba(0, 0, 0, .3);
-    box-shadow: 0 8px 0 #3E749C, 0 12px 10px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 4px 0 #3E749C;
+    -moz-box-shadow: 0 4px 0 #3E749C;
+    box-shadow: 0 4px 0 #3E749C;
   }
   &:active span {
-    -webkit-transform: translate(0, 4px);
-    -moz-transform: translate(0, 4px);
-    -o-transform: translate(0, 4px);
-    transform: translate(0, 4px);
+    -webkit-transform: translate(0, 2px);
+    -moz-transform: translate(0, 2px);
+    -o-transform: translate(0, 2px);
+    transform: translate(0, 2px);
   }
   &.re-roll-all {
     margin-top: 10px;
@@ -154,14 +182,18 @@ p {
 }
 
 .main-wrapper {
+  min-width: 365px;
   width: 100%;
-  margin: 40px auto;
+  padding: 40px 0;
+  margin: 0 auto;
   .content-wrapper {
     width: 100%;
     text-align: center;
-    margin: 10px auto;
+    margin: 0 auto;
+    padding: 10px 0;
   }
   .comic-controls {
+    font-family: sans-serif;
     position: relative;
     width: 730px;
     margin: 10px auto;
@@ -172,10 +204,19 @@ p {
   .comic-container {
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    margin: 30px auto 0;
     font-family: 'Comic Sans', 'Times New Roman', Serif, serif;
+    .comic-overflow {
+      margin: 0 auto;
+      @include media(small) {
+        max-width: 365px;
+        overflow-x: visible;
+        max-height: 145px;
+        overflow-y: visible;
+      }
+    }
     .comic {
-      transition: all linear 0.3s;
+      // transition: all linear 0.3s;
       margin: 0 auto;
       width: 730px;
       &.smaller {
@@ -190,7 +231,7 @@ p {
           left: 250px;
         }
         .panels .panel {
-          transition: all linear 0.3s;
+          // transition: all linear 0.3s;
           width: 110px;
           height: 31px;
           .panel-container .panel-content {
@@ -216,12 +257,12 @@ p {
         left: 500px;
       }
       .panels {
-        transition: all linear 0.3s;
+        // transition: all linear 0.3s;
         position: relative;
         width: 100%;
         height: 100%;
         .panel {
-          transition: all linear 0.3s;
+          // transition: all linear 0.3s;
           position: absolute;
           top: 10px;
           width: 220px;
@@ -231,7 +272,7 @@ p {
             width: 100%;
             height: 100%;
             .panel-content {
-              transition: all linear 0.3s;
+              // transition: all linear 0.3s;
               font-size: 20px;
               line-height: 23px;
               position: absolute;

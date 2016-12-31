@@ -66,8 +66,10 @@ class App extends React.Component {
               user generated content.
             </p>
           </div>
+          <div className="loading">
+            <img src="../images/zim.gif" alt="loading dancing gir"/>
+          </div>
           <h1>Loading feed...</h1>
-          <img src="../images/zim.gif" alt=""/>
         </div>
       )
     }
