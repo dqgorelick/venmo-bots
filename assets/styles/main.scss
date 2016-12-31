@@ -122,6 +122,21 @@ p {
   width: auto;
 }
 /* buttons! */
+.panel-1 span::before {
+  content: "re-roll panel";
+}
+.panel-2 span::before {
+  content: "re-roll panel";
+}
+.panel-3 span::before {
+  content: "re-roll panel";
+}
+.re-roll-all span::before {
+  content: "Randomize Comic!";
+}
+.save-comic span::before {
+  content: "Save Comic";
+}
 
 .button {
   width: 30%;
@@ -216,11 +231,14 @@ p {
       }
     }
     .comic {
-      // transition: all linear 0.3s;
+      transition: background-image linear 0.3s;
       margin: 0 auto;
       width: 730px;
+      height: 290px;
+      background-size: contain;
       &.smaller {
         width: 365px;
+        height: 145px;
         .panel-1 {
           left: 5px;
         }
@@ -231,7 +249,6 @@ p {
           left: 250px;
         }
         .panels .panel {
-          // transition: all linear 0.3s;
           width: 110px;
           height: 31px;
           .panel-container .panel-content {
@@ -257,12 +274,10 @@ p {
         left: 500px;
       }
       .panels {
-        // transition: all linear 0.3s;
         position: relative;
         width: 100%;
         height: 100%;
         .panel {
-          // transition: all linear 0.3s;
           position: absolute;
           top: 10px;
           width: 220px;
@@ -272,13 +287,15 @@ p {
             width: 100%;
             height: 100%;
             .panel-content {
-              // transition: all linear 0.3s;
               font-size: 20px;
               line-height: 23px;
               position: absolute;
               width: 100%;
               bottom: 0;
               text-align: center;
+              &::after {
+                content: attr(data-attr);
+              }
             }
           }
         }

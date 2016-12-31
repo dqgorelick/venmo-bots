@@ -13,8 +13,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       feed: null,
-      minLength: 10,
-      maxLength: 100,
+      minLength: 4,
+      maxLength: 70,
     };
     this.updateState = this.updateState.bind(this);
   }
@@ -26,7 +26,6 @@ class App extends React.Component {
   fetchVenmoData() {
     $.get( VENMO_API, ( data ) => {
       var result = JSON.parse(data);
-      console.log('result.data',result.data);
       this.setState({ feed: result });
       return result.data;
     });

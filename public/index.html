@@ -66,7 +66,6 @@
       // flag so comic size is constant when rendering
       var rendering = false;
       function checkWidth() {
-        console.log('rendering',rendering);
         if (!rendering) {
           (window.innerWidth < 750 ? $('.comic').addClass('smaller') : $('.comic').removeClass('smaller'));
         }
@@ -77,7 +76,6 @@
 
       var findSave = setInterval(function() {
         if (!!$('.save-comic').length) {
-          console.log('found .save-comic');
           $('.save-comic').click(function() {
           $('.save-modal').addClass('waiting');
           $('.comic').addClass('rendering')
