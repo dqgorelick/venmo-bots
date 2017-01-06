@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #f7f7f7;
+  background-color: #fffff;
 }
 
 h1,
@@ -158,6 +158,10 @@ p {
   @include media(small) {
     font-size: 0.8rem;
   }
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
   span {
     display: inline-block;
     background-color: #5CA7BF;
@@ -197,10 +201,12 @@ p {
 }
 
 .main-wrapper {
-  min-width: 365px;
-  width: 100%;
   padding: 40px 0;
   margin: 0 auto;
+  .header {
+    max-width: 400px;
+    width: 90%;
+  }
   .content-wrapper {
     width: 100%;
     text-align: center;
@@ -216,10 +222,14 @@ p {
       width: 365px;
     }
   }
+  .timestamp {
+    margin-top: 20px;
+    color: #777;
+  }
   .comic-container {
     position: relative;
     width: 100%;
-    margin: 30px auto 0;
+    margin: 15px auto 0;
     font-family: 'Comic Sans', 'Times New Roman', Serif, serif;
     .comic-overflow {
       margin: 0 auto;

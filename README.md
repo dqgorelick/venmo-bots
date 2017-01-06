@@ -1,6 +1,6 @@
 # Venmo Comic Generator
 
-![Venmo Strip Example](./public/images/venmo-bots.jpg)
+![Venmo Strip Example](./readme_images/venmo-bots.jpg)
 
 Creates three panel comics by combining most recent venmo transactions with Cyanide and Happiness panels. Finished comics can be printed on receipt paper.
 
@@ -31,8 +31,12 @@ Cross fingers, and try printing from the web app.
 
 Created by visitors at the SFPC exhibit:
 
-![Venmo Strip Example](./public/images/example.png)
-![Venmo Strip Example](./public/images/example4.png)
+![Venmo Strip Example](./readme_images/example.png)
+![Venmo Strip Example](./readme_images/example4.png)
 
 Originally exhibited at the [SFPC](http://sfpc.io/) Final Showcase
 
+### Deploying 
+
+Running on S3 bucket.
+`aws s3 sync build s3://${aws_s3_bucket} --region ${aws_s3_region} --delete --acl public-read --profile ${aws_s3_profile}`

@@ -20,6 +20,15 @@ var STEPS = 10;
 
 var cached;
 
+
+function filterPayments(payments, cb) {
+  var filtered = [];
+  JSON.parse(payments).data.forEach((payment) => {
+    filtered.push({message: payment.message, timestamp: payment.created_time, id: payment.payment_id});
+  });
+  return cb(JSON.stringify(filtered));
+}
+
 router.route('/feed').get((req, res) => {
   console.log('requested!');
   if (CACHED) {
@@ -31,15 +40,19 @@ router.route('/feed').get((req, res) => {
       console.log('setting cached');
       request(`https://venmo.com/api/v5/public?limit=${LIMIT}`, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-          cached = body;
-          res.send(body);
+          filterPayments(body, (filtered) => {
+            cached = filtered;
+            res.send(filtered);
+          });
         }
       })
     }
   } else {
     request(`https://venmo.com/api/v5/public?limit=${LIMIT}`, function(error, response, body) {
       if (!error && response.statusCode == 200) {
-        res.send(body);
+        filterPayments(body, (filtered) => {
+          res.send(filtered);
+        });
       }
     })
   }

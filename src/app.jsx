@@ -1,5 +1,7 @@
 import '../assets/styles/main.scss';
 
+import moment from 'moment';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
@@ -24,10 +26,16 @@ class App extends React.Component {
   }
 
   fetchVenmoData() {
-    $.get( VENMO_API, ( data ) => {
-      var result = JSON.parse(data);
-      this.setState({ feed: result });
-      return result.data;
+    $.ajax({
+      cache: false,
+      url: './feed.json',
+      dataType: 'json',
+      success: (feed) => {
+        this.setState({ feed: feed.filtered });
+        this.setState({ timestamp: feed.timestamp });
+        $('.created_at span').html(moment(feed.timestamp).format('MMMM Do YYYY, h:mm a'));
+        return feed;
+      }
     });
   }
 
@@ -48,6 +56,7 @@ class App extends React.Component {
             maxLength={this.state.maxLength}
           />
           <ListContainer
+            timestamp={this.state.timestamp}
             feed={this.state.feed}
             updateState={this.updateState}
             minLength={this.state.minLength}
@@ -57,16 +66,9 @@ class App extends React.Component {
       )
     } else {
       return (
-        <div className='main-wrapper'>
-          <div className="content-wrapper">
-            <h1>Venmo Strips Generator</h1>
-            <p>
-              Creating comics from a continuous feed of
-              user generated content.
-            </p>
-          </div>
-          <div className="loading">
-            <img src="../images/zim.gif" alt="loading dancing gir"/>
+        <div>
+          <div className='loading'>
+            <img src='../images/zim.gif' alt='loading dancing gir'/>
           </div>
           <h1>Loading feed...</h1>
         </div>

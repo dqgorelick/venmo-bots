@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Venmo Strips</title>
     <meta content="text/html">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./dist/main.css">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -23,14 +24,16 @@
         </div>
         <div class="rendered">
           <h3>Final Comic!</h3>
+          <br>
+          <p class="created_at">Created with Venmo transaction messages from <span></span></p>
           <div class="final_comic"></div>
-            <a class="download_link" download='venmo_strip.png'>
-              <div class="button">
+            <div class="button">
+              <a class="download_link" download='venmo_strip.png'>
                 <span>
                   Download
                 </span>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
           <div class="button close">
             <span>Close</span>
@@ -49,15 +52,16 @@
         </div>
       </div>
     </div>
-    <div id="app">
-      <div class="main-wrapper">
-        <div class="content-wrapper">
+    <div class="main-wrapper">
+      <div class="content-wrapper">
+        <div className='header'>
           <h1>Venmo Strips Generator</h1>
           <p>
             Creating comics from a continuous feed of
             user generated content.
           </p>
         </div>
+        <div id="app"></div>
       </div>
     </div>
     <script src="./dist/bundle.js"></script>
@@ -77,29 +81,30 @@
       var findSave = setInterval(function() {
         if (!!$('.save-comic').length) {
           $('.save-comic').click(function() {
-          $('.save-modal').addClass('waiting');
-          $('.comic').addClass('rendering')
-          $('.comic').removeClass('smaller')
-          rendering = true;
-          $('.save-wrapper').css('display','initial');
-          var node = document.querySelector('.comic');
-          html2canvas(node, {useCORS: true}).then(function (canvas) {
-            try {
-              b64Data = canvas.toDataURL("image/png");
-              var img = new Image();
-              img.src = b64Data;
-              $('.download_link').attr('href', img.src);
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            $('.save-modal').addClass('waiting');
+            $('.comic').addClass('rendering')
+            $('.comic').removeClass('smaller')
+            rendering = true;
+            $('.save-wrapper').css('display','initial');
+            var node = document.querySelector('.comic');
+            html2canvas(node, {useCORS: true}).then(function (canvas) {
+              try {
+                b64Data = canvas.toDataURL("image/png");
+                var img = new Image();
+                img.src = b64Data;
+                $('.download_link').attr('href', img.src);
 
-              $('.final_comic').html(img);
-              setTimeout(function() {
-                $('.save-modal').removeClass('waiting');
-                rendering = false;
-                checkWidth();
-              }, 250);
-            } catch (err) {
-              console.log('err',err);
-            }
-          });
+                $('.final_comic').html(img);
+                setTimeout(function() {
+                  $('.save-modal').removeClass('waiting');
+                  rendering = false;
+                  checkWidth();
+                }, 250);
+              } catch (err) {
+                console.log('err',err);
+              }
+            });
           });
           clearInterval(findSave);
         } else {

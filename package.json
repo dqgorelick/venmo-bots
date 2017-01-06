@@ -1,8 +1,8 @@
 {
-  "name": "react-webpack-scaffold",
+  "name": "venmostrips",
   "version": "1.0.0",
   "description": "Basic react-webpack setup",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config webpack.config.js --progress --profile --watch",

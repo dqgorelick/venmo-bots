@@ -9,7 +9,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #f7f7f7; }
+  background-color: #fffff; }
 
 h1,
 h2,
@@ -131,6 +131,9 @@ p {
   @media (max-width: 750px) {
     .button {
       font-size: 0.8rem; } }
+  .button a {
+    text-decoration: none;
+    color: #fff; }
   .button span {
     display: inline-block;
     background-color: #5CA7BF;
@@ -163,10 +166,11 @@ p {
     width: 96.66%; }
 
 .main-wrapper {
-  min-width: 365px;
-  width: 100%;
   padding: 40px 0;
   margin: 0 auto; }
+  .main-wrapper .header {
+    max-width: 400px;
+    width: 90%; }
   .main-wrapper .content-wrapper {
     width: 100%;
     text-align: center;
@@ -180,10 +184,13 @@ p {
     @media (max-width: 750px) {
       .main-wrapper .comic-controls {
         width: 365px; } }
+  .main-wrapper .timestamp {
+    margin-top: 20px;
+    color: #777; }
   .main-wrapper .comic-container {
     position: relative;
     width: 100%;
-    margin: 30px auto 0;
+    margin: 15px auto 0;
     font-family: 'Comic Sans', 'Times New Roman', Serif, serif; }
     .main-wrapper .comic-container .comic-overflow {
       margin: 0 auto; }
