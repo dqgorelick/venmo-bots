@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var ImageComponent = React.createClass({
+var ComicView = React.createClass({
   getInitialState() {
     return {
       loaded: false,
       src: null
-
     };
   },
 
@@ -43,4 +42,4 @@ var ImageComponent = React.createClass({
   }
 });
 
-export default ImageComponent;
+export default ComicView;

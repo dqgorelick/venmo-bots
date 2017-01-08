@@ -77,7 +77,7 @@ class ComicContainer extends React.Component {
     if (this.state.comic !== null) {
       return (
         <div>
-          <div className="comic-overflow">
+          <div className='comic-overflow'>
             <div style={backgroundImage} className={`comic ${(window.innerWidth < 750 ? 'smaller': '')}`}>
               {this.renderPanels()}
             </div>
@@ -88,6 +88,14 @@ class ComicContainer extends React.Component {
             <div className='button panel-3' onClick={()=>{this.rollPanel('panel3')}}><span></span></div>
             <div className='button re-roll-all' onClick={this.getPanelContent}><span></span></div>
             <div className='button save-comic'><span></span></div>
+            <div className='footer-wrapper'>
+              <div>
+                <p><a href='http://danielgorelick.com/#venmobots' target='_blank'>What is this?</a> | <a href='https://github.com/dqgorelick/venmo-bots' target='_blank'>github</a></p>
+              </div>
+              <div className='disclaimer'>
+                <p>Transactions from <a href='http://venmo.com/' target='_blank'>Venmo</a> and content from the <a href='http://explosm.net/' target='_blank'>Cyanide and Happiness</a> comics used solely for creative purposes.</p>
+              </div>
+            </div>
           </div>
         </div>
       )

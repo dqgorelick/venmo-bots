@@ -8,8 +8,10 @@
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="./dist/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <script src="../javascripts/jquery.min.js"></script>
+    <script src="./ga.js"></script>
     <script src="../javascripts/html2canvas.min.js"></script>
 </head>
 
@@ -23,7 +25,7 @@
           </div>
         </div>
         <div class="rendered">
-          <h3>Final Comic!</h3>
+          <h2>Final Comic!</h2>
           <br>
           <p class="created_at">Created with Venmo transaction messages from <span></span></p>
           <div class="final_comic"></div>
@@ -45,20 +47,19 @@
       <div class="reloading">
         <h1>Get most recent Venmo payments?</h1>
         <div class="buttons">
-          <button class="button-yes">Yes</button>
+          <div class="button button-yes"><span>Yes</span></div>
           <br>
           <br>
-          <button class="button-no">Not yet</button>
+          <div class="button button-no"><span>Not yet</span></div>
         </div>
       </div>
     </div>
     <div class="main-wrapper">
       <div class="content-wrapper">
-        <div className='header'>
-          <h1>Venmo Strips Generator</h1>
+        <div class="header">
+          <h1>Venmo Strips</h1>
           <p>
-            Creating comics from a continuous feed of
-            user generated content.
+            Creating new (sometimes comical) narratives from Venmo messages.
           </p>
         </div>
         <div id="app"></div>
