@@ -51,8 +51,9 @@ p {
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 99999999;
   .save-modal {
-    margin: 5% 5%;
-    min-height: 80vh;
+    margin: 20px auto;
+    max-width: 800px;
+    width: 90%;
     padding: 20px 15px;
     text-align: center;
     background-color: #ffffff;
@@ -75,7 +76,7 @@ p {
       max-width: 730px;
       width: 100%;
       height: auto;
-      margin: 40px auto;
+      margin: 10px auto 0;
     }
   }
 }
@@ -262,9 +263,27 @@ p {
       width: 730px;
       height: 290px;
       background-size: contain;
+      .created_at {
+        position: absolute;
+        width: 324px;
+        height: 30px;
+        text-align: center;
+        top: 262px;
+        left: 203px;
+        &::after {
+          content: attr(data-attr);
+        }
+      }
       &.smaller {
         width: 365px;
         height: 145px;
+        .created_at {
+          font-size: 8px;
+          width: 163px;
+          height: 14px;
+          top: 130px;
+          left: 101px;
+        }
         .panel-1 {
           left: 5px;
         }

@@ -61,6 +61,13 @@ class ComicContainer extends React.Component {
               </div>
             </div>
           </div>
+          <div className='panel panel-3'>
+            <div className='panel-container'>
+              <div className='panel-content' data-attr={`${this.state.panels.panel3.props.payment.message}`}>
+              </div>
+            </div>
+          </div>
+          <div className='created_at'></div>
         </div>
       )
     } else {

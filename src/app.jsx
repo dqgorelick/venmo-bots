@@ -33,7 +33,7 @@ class App extends React.Component {
       success: (feed) => {
         this.setState({ feed: feed.filtered });
         this.setState({ timestamp: feed.timestamp });
-        $('.created_at span').html(moment(feed.timestamp).format('MMMM Do YYYY, h:mm a'));
+        $('.created_at').attr('data-attr', `${moment(feed.timestamp).format('D MMM YYYY, h:mm a')} | venmostrips.com`);
         return feed;
       }
     });
